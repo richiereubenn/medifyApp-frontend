@@ -1,16 +1,17 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import HomePage from './pages/homepage';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
+const App = () => (
+  <div>
+    <nav className="bg-teal-600 p-4 shadow-md">
+      <ul className="flex gap-4 justify-center">
+        <li><Link className="text-white font-semibold hover:text-gray-200" to="/">Home</Link></li>
+        <li><Link className="text-white font-semibold hover:text-gray-200" to="/login">Login</Link></li>
+        <li><Link className="text-white font-semibold hover:text-gray-200" to="/register1">Register 1</Link></li>
+        <li><Link className="text-white font-semibold hover:text-gray-200" to="/register2">Register 2</Link></li>
+      </ul>
+    </nav>
+  </div>
+);
 
-const App = () => {
-  return (
-    <>
-    </>
-   
-  );
-};
-
-export default App
+export default App;
