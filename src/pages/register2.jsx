@@ -69,20 +69,25 @@ const Register2 = () => {
         }).then(({ data: { text } }) => {
             console.log("OCR Text:", text);
             const parsedData = parseText(text);
-            console.log("Parsed Data:", parsedData);
+            console.log("Parsed Data:", parsedData); // Log data yang sudah diparsing
             setOcrData(parsedData);
+            console.log("Updated ocrData:", parsedData); // Log ocrData setelah diupdate
         });
-    };    
+    };  
 
     const handleFileChange = (event) => {
         const file = event.target.files[0];
         if (file) {
-            const imgUrl = URL.createObjectURL(file);
-            setImage(imgUrl);
-            processOCR(imgUrl);
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                const imgUrl = reader.result;
+                setImage(imgUrl);
+                processOCR(imgUrl); // Ganti imgUrl dengan data URL
+            };
+            reader.readAsDataURL(file);
         }
     };
-
+    
     const handleNext = () => {
         console.log("Navigating with data:", ocrData);
         navigate('/registerform', { state: ocrData });

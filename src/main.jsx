@@ -7,12 +7,14 @@ import LoginPage from './pages/login';
 import RegisterPage1 from './pages/register1';
 import RegisterPage2 from './pages/register2';
 import RegisterForm from './pages/registerForm.jsx';
+import HomePage from './pages/homepage';
+import BaymaxPage from './pages/baymax';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: (
-      <div>
+      <div className='m-10'>
         <App />
         <Outlet />
       </div>
@@ -21,7 +23,9 @@ const router = createBrowserRouter([
       { path: 'login', element: <LoginPage /> },
       { path: 'register1', element: <RegisterPage1 /> },
       { path: 'register2', element: <RegisterPage2 /> },
-      { path: '/registerform', element: <RegisterForm /> }
+      { path: '/', element: <HomePage /> },
+      { path: '/registerform', element: <RegisterForm /> },
+      { path: '/baymax', element: <BaymaxPage/> }
     ]
   }
 ]);
