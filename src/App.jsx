@@ -1,25 +1,17 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-const FullWidthButton = () => {
-  return (
-    <button className="w-auto h-12 px-4 py-2 border-2 border-blue-500 text-blue-500 font-semibold rounded-md hover:bg-blue-500 hover:text-white transition duration-200">
-      Click Me
-    </button>
-  );
-};
+const App = () => (
+  <div>
+    <nav className="bg-teal-600 p-4 shadow-md">
+      <ul className="flex gap-4 justify-center">
+        <li><Link className="text-white font-semibold hover:text-gray-200" to="/">Home</Link></li>
+        <li><Link className="text-white font-semibold hover:text-gray-200" to="/login">Login</Link></li>
+        <li><Link className="text-white font-semibold hover:text-gray-200" to="/register1">Register 1</Link></li>
+        <li><Link className="text-white font-semibold hover:text-gray-200" to="/register2">Register 2</Link></li>
+      </ul>
+    </nav>
+  </div>
+);
 
-const App = () => {
-  return (
-    <div className="flex flex-col gap-2 justify-center m-[-10] bg-slate-300">
-      <FullWidthButton />
-      <FullWidthButton />
-      <FullWidthButton />
-      <FullWidthButton />
-    </div>
-  );
-};
-
-export default App
+export default App;
