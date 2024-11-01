@@ -1,9 +1,9 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import medify1 from '../assets/medify1.png';
 import mark from '../assets/mark.png'
 import john from '../assets/john.png'
 import jane from '../assets/jane.png'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const JanjiDokter = () => {
     return (
@@ -48,7 +48,6 @@ const RiwayatKesehatan = () => {
     return (
         <div className="w-full">
             <p className="text-md text-start font-semibold text-slate-800 mb-2">Riwayat Kesehatan Terakhir</p>
-            
             <div className="flex w-full gap-3">
                 {Object.keys(patientData).map((name) => (
                     <button
@@ -126,16 +125,35 @@ const TagihanIuran = () => {
 };
 
 const HomePage = () => {
+    const userId = sessionStorage.getItem('userId');
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!userId) {
+            navigate('/login'); // Redirect to login if no userId found
+        }
+    }, [userId, navigate]);
+
+    const handleLogout = () => {
+        sessionStorage.removeItem('userId'); // Clear the userId from session storage
+        navigate('/login'); // Redirect to the login page
+    };
+
     return (
         <>
             <div className="flex flex-col gap-4">
                 <div className="flex justify-between">
                     <div className="flex">
+                        <p>{userId}</p>
                         <img src={mark} alt="Deskripsi Gambar" className="w-[40px]" />
                         <img src={john} alt="Deskripsi Gambar" className="w-[40px] ml-[-15px]" />
                         <img src={jane} alt="Deskripsi Gambar" className="w-[40px] ml-[-15px]" />
                     </div>
                     <div>
+                    <button
+                            className="mt-2 w-full mx-auto rounded border-2 border-red-600 bg-red-600 px-8 py-1.5 text-sm font-medium text-white hover:bg-red-700 transition duration-200"
+                            onClick={handleLogout}
+                        ></button>
                         <button className="w-full mx-auto rounded border-2 border-teal-600 bg-teal-600 px-8 py-1.5 text-sm font-medium text-white ">Tambah Anggota</button>
                     </div>
                 </div>

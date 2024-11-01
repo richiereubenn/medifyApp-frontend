@@ -8,26 +8,27 @@ const RegisterPage1 = () => {
     const [confirmPassword, setConfirmPassword] = useState('');
     const navigate = useNavigate();
 
-    const generateJKN = () => {
-        return `JKN-${Math.random().toString(36).substring(2, 8).toUpperCase()}`;
-    };
 
     const handleRegister = (e) => {
         e.preventDefault();
-
+    
         if (password !== confirmPassword) {
             alert("Password dan Konfirmasi Password tidak cocok.");
             return;
         }
-
-        const jknNumber = generateJKN();
-        const userData = { phoneNumber, password, jknNumber, dokter: [] }; // Inisialisasi dokter sebagai array
-        localStorage.setItem('userData', JSON.stringify(userData));
-
-        alert(`Registrasi berhasil! Nomor JKN Anda: ${jknNumber}`);
-
-        navigate('/login');
+    
+        const existingUsers = JSON.parse(localStorage.getItem('userData')) || [];
+    
+        const newUser = { id: existingUsers.length + 1,  phoneNumber, password };
+    
+        const updatedUsers = [...existingUsers, newUser];
+    
+        localStorage.setItem('userData', JSON.stringify(updatedUsers));
+        sessionStorage.setItem('userId', newUser.id);
+    
+        navigate('/register2');
     };
+    
 
     return (
         <div className="flex flex-col mx-1 h-[660px] justify-between">

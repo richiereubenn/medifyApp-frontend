@@ -5,18 +5,23 @@ import medify1 from '../assets/medify1.png';
 const LoginPage = () => {
     const [jknNumber, setJknNumber] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
     const navigate = useNavigate();
 
     const handleLogin = (e) => {
         e.preventDefault();
 
-        const userData = JSON.parse(localStorage.getItem('userData'));
+        const usersData = JSON.parse(localStorage.getItem('userData')) || [];
 
-        if (userData && userData.jknNumber === jknNumber && userData.password === password) {
+        // Check if any user matches the provided JKN number and password
+        const user = usersData.find(user => user.jkn === jknNumber && user.password === password);
+
+        if (user) {
             alert('Login berhasil!');
+            sessionStorage.setItem('userId', user.id);
             navigate('/');
         } else {
-            alert('Nomor JKN atau password salah.');
+            setError('Nomor JKN atau password salah.');
         }
     };
 
@@ -52,6 +57,7 @@ const LoginPage = () => {
                         Password
                     </label>
                 </div>
+                {error && <p className="text-red-600">{error}</p>}
                 <div className="w-full">
                     <button className="w-full mx-auto rounded border-2 border-teal-600 bg-teal-600 px-12 py-2 text-sm font-medium text-white hover:bg-transparent hover:text-teal-600 focus:outline-none focus:ring active:text-indigo-00" type="submit">
                         Login
