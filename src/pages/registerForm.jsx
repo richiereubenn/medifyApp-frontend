@@ -56,8 +56,25 @@ const RegisterForm = () => {
         existingUsers[userIndex] = {
           ...existingUsers[userIndex],
           ...formData,
-          jkn: newJKNNumber
-        };
+          jkn: newJKNNumber,
+          janjiBertemuDokter: {}, // Array kosong untuk janji bertemu dokter
+          riwayatKesehatanTerakhir: 
+              {
+                  rumahSakit: 'Rumah Sakit Umum',
+                  tanggal: '2024-10-01',
+                  diagnosa: 'Hipertensi',
+                  gejala: 'Pusing, sesak napas',
+              }
+          , // Array berisi objek riwayat kesehatan terakhir
+          tagihanIuran: 
+              {
+                  tagihan: 50000,
+                  denda: 5000,
+                  totalTagihan: 55000,
+              }
+          // Array berisi objek tagihan iuran
+      };
+      
 
         localStorage.setItem('userData', JSON.stringify(existingUsers));
 

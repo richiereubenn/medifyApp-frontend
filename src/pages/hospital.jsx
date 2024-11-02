@@ -1,8 +1,10 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import hospitalImage from '../assets/medify.png';
 
 const HospitalPage = () => {
     const [searchTerm, setSearchTerm] = useState('');
+    const navigate = useNavigate();
 
     const hospitals = [
         {
@@ -38,6 +40,11 @@ const HospitalPage = () => {
         )
     );
 
+    // Function to navigate to the doctor page with hospital name
+    const navigateToDoctorPage = (hospitalName) => {
+        navigate('/doctor', { state: { hospitalName } });
+    };
+
     return (
         <div className="w-full">
             <p className="text-start text-xl font-semibold text-teal-600">List Rumah Sakit</p>
@@ -56,18 +63,20 @@ const HospitalPage = () => {
                         alt="Hospital"
                         className="w-32 h-32 rounded object-cover"
                     />
-                    <div className='flex flex-col justify-between'>
+                    <div className='flex flex-col justify-between w-full'>
                         <div className="ml-4 text-left">
                             <p className="font-bold text-lg text-teal-700">{hospital.name}</p>
                             <p className="text-sm text-gray-600">{hospital.address}</p>
                             <p className="text-sm text-gray-500">{hospital.distance}</p>
                             <p className="text-sm text-gray-500">{hospital.phone}</p>
                         </div>
-                        <div>
-                            <p className="ml-4 text-left text-sm text-gray-500">Sisa Kamar : {hospital.availableRooms}</p>
-                        </div>
+                        <button
+                            onClick={() => navigateToDoctorPage(hospital.name)}
+                            className="mt-4 bg-teal-600 text-white rounded px-4 py-2 hover:bg-teal-700 transition duration-200"
+                        >
+                            Lihat Dokter
+                        </button>
                     </div>
-
                 </div>
             ))}
             {filteredHospitals.length === 0 && (
