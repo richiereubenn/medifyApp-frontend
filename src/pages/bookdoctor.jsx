@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
-
+const userId = sessionStorage.getItem('userId');
 const BookDoctor = () => {
     const { doctorName } = useParams();
     const location = useLocation();
     const navigate = useNavigate();
     const doctor = location.state?.doctor;
+    const hospitalName = doctor?.hospital; // mendapatkan nama rumah sakit
+const specialization = doctor?.specialization; // mendapatkan spesialisasi
+    
 
     const [appointmentDetails, setAppointmentDetails] = useState({
         date: '',
@@ -51,17 +54,64 @@ const BookDoctor = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (isDateValid) {
-            alert(`Nomor antrian berhasil diambil.\nDokter: ${doctorName}\nTanggal: ${appointmentDetails.date}\nNomor Antrian: ${appointmentDetails.queueNumber}`);
+            const appointmentData = {
+                doctor: doctorName,
+                date: appointmentDetails.date,
+                queueNumber: appointmentDetails.queueNumber,
+                rumahSakit: hospitalName,
+                specialization: specialization
+
+            };
+    
+            console.log("Retrieved userId from sessionStorage:", userId);
+    
+            if (userId) {
+                const userId = sessionStorage.getItem('userId');
+                const existingUsers = JSON.parse(localStorage.getItem('userData')) || [];
+                const userIndex = existingUsers.findIndex(user => user.id == userId);
+
+                // const usersData = JSON.parse(localStorage.getItem('users')) || [];
+                console.log("Retrieved usersData from localStorage:", userIndex);
+    
+                // const userIndex = usersData.findIndex(user => user.id === userId);
+                // console.log("User Index:", userIndex);
+    
+                if (userIndex > -1) {
+                    existingUsers[userIndex] = {
+                        ...existingUsers[userIndex],
+                        janjiBertemuDokter: {...appointmentData}, // Mempertahankan data yang ada
+                         // Memperbarui dengan data janji temu baru
+                    };
+    
+                    // Simpan kembali ke localStorage
+                    localStorage.setItem('userData', JSON.stringify(existingUsers));
+                    
+                    // Notifikasi berhasil
+                    alert(`Nomor antrian berhasil diambil.\nDokter: ${doctorName}\nTanggal: ${appointmentDetails.date}\nNomor Antrian: ${appointmentDetails.queueNumber}`);
+                } else {
+                    alert('User not found in local storage.');
+                }
+            } else {
+                alert('User ID not found in session storage.');
+            }
         } else {
             alert('Please select a valid date.');
         }
     };
-
+    
+    
+    
     return (
         <div className="flex flex-col justify-center items-center">
             <div className="max-w-md w-full bg-white p-8 shadow-lg rounded-lg">
                 <h2 className="text-2xl font-bold mb-6 text-center text-teal-600">Ambil Antrian</h2>
+                <p>{doctorName}</p>
+                <p>{userId}</p>
+                <p>{appointmentDetails.date}</p>
+                <p>{appointmentDetails.queueNumber}</p>
                 <h3 className="text-xl font-semibold mb-4">Dokter: {doctorName}</h3>
+                <h3 className="text-xl font-semibold mb-4">Spesialisasi: {specialization}</h3>
+                <h3 className="text-xl font-semibold mb-4">Rumah Sakit: {hospitalName}</h3>
                 <div className="mb-4">
                     <h4 className="text-lg font-semibold mb-2">Jadwal:</h4>
                     <ul className="list-disc list-inside text-gray-700">

@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const doctorList = [
     {
         name: 'Dr. John Doe',
         specialization: 'Cardiologist',
-        hospital: 'RS Sentosa',
+        hospital: 'RS Sejahtera',
         available: 'Available',
         schedule: [ 
             { day: 'Senin', start: '09:00', end: '17:00' }, 
@@ -15,7 +15,7 @@ const doctorList = [
     {
         name: 'Dr. Jane Smith',
         specialization: 'Dermatologist',
-        hospital: 'RS Elizabet',
+        hospital: 'RS Sejahtera',
         available: 'Not Available',
         schedule: [ 
             { day: 'Selasa', start: '10:00', end: '16:00' }, 
@@ -25,7 +25,7 @@ const doctorList = [
     {
         name: 'Dr. Bob Brown',
         specialization: 'Neurologist',
-        hospital: 'RS Tlogorejo',
+        hospital: 'RS Sejahtera',
         available: 'Available',
         schedule: [ 
             { day: 'Jumat', start: '10:00', end: '16:00' }, 
@@ -36,7 +36,7 @@ const doctorList = [
     {
         name: 'Dr. Alice Johnson',
         specialization: 'Pediatrician',
-        hospital: 'RS Siloam',
+        hospital: 'RS Sentosa',
         available: 'Available',
         schedule: [ 
             { day: 'Senin', start: '10:00', end: '16:00' }, 
@@ -47,7 +47,7 @@ const doctorList = [
     {
         name: 'Dr. Charlie Davis',
         specialization: 'Orthopedic Surgeon',
-        hospital: 'RS Pantiwilasa Citarum',
+        hospital: 'RS Sentosa',
         available: 'Not Available',
         schedule: [ 
             { day: 'Jumat', start: '14:00', end: '16:00' }, 
@@ -57,7 +57,7 @@ const doctorList = [
     {
         name: 'Dr. Emily White',
         specialization: 'Gastroenterologist',
-        hospital: 'RS Citraland',
+        hospital: 'RS Sentosa',
         available: 'Available',
         schedule: [ 
             { day: 'Selasa', start: '07:00', end: '17:00' }, 
@@ -66,7 +66,7 @@ const doctorList = [
     {
         name: 'Dr. Frank Green',
         specialization: 'Ophthalmologist',
-        hospital: 'RS Kariadi',
+        hospital: 'RS Harmoni',
         available: 'Not Available',
         schedule: [ 
             { day: 'Rabu', start: '09:00', end: '12:00' }, 
@@ -78,19 +78,33 @@ const doctorList = [
 const Doctor = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const navigate = useNavigate();
+    const location = useLocation();
+    const hospitalName = location.state?.hospitalName || '';
+
+    // Filter doctors by hospital and search term
+    const filteredDoctors = doctorList.filter(
+        (doctor) =>
+            doctor.hospital === hospitalName &&
+            doctor.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
 
     const handleBooking = (doctor) => {
-        navigate(`/book/${doctor.name}`, { state: { doctor } });
+        navigate(`/book/${doctor.name}`, { 
+            state: { 
+                doctor: {
+                    ...doctor,
+                    specialization: doctor.specialization, // menambahkan spesialisasi
+                    hospital: doctor.hospital // menambahkan nama rumah sakit
+                }
+            } 
+        });
     };
-
-    const filteredDoctors = doctorList.filter(doctor =>
-        doctor.name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    
 
     return (
         <div className="w-full">
             <header className="text-teal-600 p-4">
-                <h1 className="text-3xl font-bold text-center">Daftar Dokter</h1>
+                <h1 className="text-3xl font-bold text-center">Daftar Dokter di {hospitalName}</h1>
             </header>
             <main className="mx-auto p-8 bg-white shadow-lg rounded-lg mt-8">
                 <input
@@ -127,9 +141,13 @@ const Doctor = () => {
                         </button>
                     </div>
                 ))}
+                {filteredDoctors.length === 0 && (
+                    <p className="text-gray-500 text-center mt-4">Dokter tidak ditemukan di {hospitalName}</p>
+                )}
             </main>
         </div>
     );
 };
 
 export default Doctor;
+
