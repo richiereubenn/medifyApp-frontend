@@ -33,22 +33,19 @@ const HospitalPage = () => {
         },
     ];
 
-    // Filter hospitals based on the search term
     const filteredHospitals = hospitals.filter((hospital) =>
         Object.values(hospital).some((value) =>
             value.toString().toLowerCase().includes(searchTerm.toLowerCase())
         )
     );
 
-    // Function to navigate to the doctor page with hospital name
     const navigateToDoctorPage = (hospitalName) => {
         navigate('/doctor', { state: { hospitalName } });
     };
 
     return (
         <div className="w-full">
-            <p className="text-start text-xl font-semibold text-teal-600">List Rumah Sakit</p>
-            <p className="text-sm text-start font-semibold text-slate-800 mt-[-2px] mb-3">Anggota : Richie</p>
+            <p className="text-start text-xl font-semibold text-teal-600 mb-2">List Rumah Sakit</p>
             <input
                 type="text"
                 placeholder="Cari rumah sakit..."
@@ -70,12 +67,15 @@ const HospitalPage = () => {
                             <p className="text-sm text-gray-500">{hospital.distance}</p>
                             <p className="text-sm text-gray-500">{hospital.phone}</p>
                         </div>
-                        <button
-                            onClick={() => navigateToDoctorPage(hospital.name)}
-                            className="mt-4 bg-teal-600 text-white rounded px-4 py-2 hover:bg-teal-700 transition duration-200"
-                        >
-                            Lihat Dokter
-                        </button>
+                        <div className='flex justify-end'>
+                            <button
+                                onClick={() => navigateToDoctorPage(hospital.name)}
+                                className="mt-4 w-32 bg-teal-600 text-white rounded px-4 py-2 hover:bg-teal-700 transition duration-200"
+                            >
+                                Lihat Dokter
+                            </button>
+                        </div>
+
                     </div>
                 </div>
             ))}

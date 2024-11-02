@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import ProgressBar from "../components/progressbar"; // Pastikan komponen ProgressBar tersedia
+import ProgressBar from "../components/progressbar"; 
 
 const RegisterPage1 = () => {
     const [phoneNumber, setPhoneNumber] = useState('');
