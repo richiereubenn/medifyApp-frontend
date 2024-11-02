@@ -20,14 +20,14 @@ const RegisterForm = () => {
   const generateJKNNumber = () => {
     return 'JKN-' + Math.floor(Math.random() * 1000000).toString().padStart(6, '0');
   };
-  
+
 
   useEffect(() => {
     console.log('location.state:', location.state);
     if (location.state) {
       setFormData(location.state);
     }
-  }, [location.state]);  
+  }, [location.state]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -44,36 +44,34 @@ const RegisterForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (isFormComplete()) {
-        const userId = sessionStorage.getItem('userId');
-        const existingUsers = JSON.parse(localStorage.getItem('userData')) || [];
-        const userIndex = existingUsers.findIndex(user => user.id == userId);
+      const userId = sessionStorage.getItem('userId');
+      const existingUsers = JSON.parse(localStorage.getItem('userData')) || [];
+      const userIndex = existingUsers.findIndex(user => user.id == userId);
 
-        if (userIndex !== -1) {
-            const newJKNNumber = generateJKNNumber(); 
-            setJknNumber(newJKNNumber);
+      if (userIndex !== -1) {
+        const newJKNNumber = generateJKNNumber();
+        setJknNumber(newJKNNumber);
 
-            // Update data pengguna dengan data dari form
-            existingUsers[userIndex] = {
-                ...existingUsers[userIndex],
-                ...formData,
-                jkn: newJKNNumber 
-            };
+        // Update data pengguna dengan data dari form
+        existingUsers[userIndex] = {
+          ...existingUsers[userIndex],
+          ...formData,
+          jkn: newJKNNumber
+        };
 
-            localStorage.setItem('userData', JSON.stringify(existingUsers));
+        localStorage.setItem('userData', JSON.stringify(existingUsers));
 
-            // Pindahkan alert ini setelah Anda mengatur jknNumber
-            alert(`Registrasi berhasil! Nomor JKN Anda: ${newJKNNumber}`); 
-            sessionStorage.clear();
+        // Pindahkan alert ini setelah Anda mengatur jknNumber
+        alert(`Registrasi berhasil! Nomor JKN Anda: ${newJKNNumber}`);
+        sessionStorage.clear();
 
-            navigate('/login');
-            console.log('Form data submitted and user updated:', existingUsers[userIndex]);
-        } else {
-            console.error('User not found!');
-        }
+        navigate('/');
+        console.log('Form data submitted and user updated:', existingUsers[userIndex]);
+      } else {
+        console.error('User not found!');
+      }
     }
-};
-
-
+  };
 
   return (
     <div className="max-w-md mx-auto p-8 bg-white shadow-lg rounded-lg" style={{ fontFamily: 'Arial, sans-serif' }}>

@@ -3,12 +3,15 @@ import { createRoot } from 'react-dom/client';
 import './index.css';
 import { RouterProvider, createBrowserRouter, Outlet } from 'react-router-dom';
 import App from './App.jsx';
-import LoginPage from './pages/login';
-import RegisterPage1 from './pages/register1';
-import RegisterPage2 from './pages/register2';
+import LoginPage from './pages/login.jsx';
+import RegisterPage1 from './pages/register1.jsx';
+import RegisterPage2 from './pages/register2.jsx';
 import RegisterForm from './pages/registerForm.jsx';
-import HomePage from './pages/homepage';
-import BaymaxPage from './pages/baymax';
+import HomePage from './pages/homepage.jsx';
+import BaymaxPage from './pages/baymax.jsx';
+import HospitalPage from './pages/hospital.jsx';
+import DoctorPage from './pages/doctor.jsx';
+import BookDoctorPage from './pages/bookdoctor.jsx';
 
 const router = createBrowserRouter([
   {
@@ -20,12 +23,15 @@ const router = createBrowserRouter([
       </div>
     ),
     children: [
-      { path: 'login', element: <LoginPage /> },
+      { path: 'login', element: <DoctorPage /> },
       { path: 'register1', element: <RegisterPage1 /> },
       { path: 'register2', element: <RegisterPage2 /> },
       { path: '/', element: <HomePage /> },
       { path: '/registerform', element: <RegisterForm /> },
-      { path: '/baymax', element: <BaymaxPage/> }
+      { path: '/baymax', element: <BaymaxPage /> },
+      { path: '/hospital', element: <HospitalPage /> },
+      { path: '/doctor', element: <DoctorPage /> },
+      { path: '/book/:doctorName', element: <BookDoctorPage /> }
     ]
   }
 ]);
