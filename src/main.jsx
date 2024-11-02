@@ -23,7 +23,7 @@ const router = createBrowserRouter([
       </div>
     ),
     children: [
-      { path: 'login', element: <DoctorPage /> },
+      { path: 'login', element: <LoginPage /> },
       { path: 'register1', element: <RegisterPage1 /> },
       { path: 'register2', element: <RegisterPage2 /> },
       { path: '/', element: <HomePage /> },
