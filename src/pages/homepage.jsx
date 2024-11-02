@@ -5,32 +5,22 @@ import { useEffect, useState } from 'react';
 const JanjiDokter = ({ userData, name }) => {
     return (
         <div className="w-full p-4 mt-4 bg-white rounded-lg shadow-lg">
-            <p className="text-lg font-bold text-teal-700 mb-4">Janji Bertemu Dokter</p>
-            <div className="flex gap-4">
-                <div className="flex flex-col gap-2 bg-teal-100 rounded-md p-4 w-2/3">
-                    <p className="text-md font-semibold text-teal-800">{name.nama}</p>
-                    <p className="text-sm text-teal-700">{userData.queueNumber || "Tanggal belum ditentukan"}</p>
+            <p className="text-md font-semibold text-slate-800 mb-2">Janji Bertemu Dokter</p>
+            <div className="flex gap-4 bg-teal-100 rounded">
+                <div className="flex flex-col gap-2 rounded-md p-3 w-1/2">
+                    
+                <p className="text-sm text-teal-700">{userData.rumahSakit || "RS belum ditentukan"}</p>
                     <p className="text-sm text-teal-700">{userData.date || "Waktu belum ditentukan"}</p>
-                    <p className="text-sm text-teal-700">{userData.rumahSakit || "RS belum ditentukan"}</p>
+                    
+                    <p className="text-sm text-teal-700">Nomor Antrian : {userData.queueNumber || "Tanggal belum ditentukan"}</p>
                 </div>
-                <div className="flex items-center bg-white p-4 rounded-md w-1/3">
-                    <img src={mark} alt="Dokter" className="w-[50px] h-[50px] mr-4" />
+                <div className="flex items-center  p-4 rounded-md w-1/2">
                     <div>
-                        <p className="text-md font-semibold text-teal-600">{userData.doctor}</p>
-                        <p className="text-sm text-teal-500">{userData.specialization}</p>
+                        <p className="text-md font-bold text-teal-600">{userData.doctor}</p>
+                        <p className="text-sm text-teal-500">Spesialis: {userData.specialization}</p>
                     </div>
                 </div>
             </div>
-            <p className="mt-4 text-sm text-gray-600">
-                Untuk informasi lebih lanjut atau perubahan jadwal, gunakan 
-                <button 
-                    onClick={() => alert('Chatbot opened!')}
-                    className="text-teal-500 font-semibold ml-1 underline hover:text-teal-700"
-                >
-                    chatbot
-                </button> 
-                kami.
-            </p>
         </div>
     );
 };
@@ -63,7 +53,7 @@ const TagihanIuran = ({ userData }) => {
                 <p className="text-md text-start font-semibold text-slate-800 mb-2">Total Tagihan :</p>
                 <p>Rp. {userData?.tagihan?.toLocaleString('id-ID') || "Loading..."}</p>
             </div>
-            <div className="flex justify-between rounded bg-teal-200 p-2 mt-2">
+            <div className="flex justify-between rounded bg-teal-100 p-2 mt-2">
                 <div className="text-start flex flex-col gap-2">
                     <p className="text-teal-700 font-semibold">Tagihan</p>
                     <p className="text-teal-700 font-semibold">Denda</p>
@@ -106,9 +96,8 @@ const HomePage = () => {
             <div className="flex flex-col gap-4">
                 <div className="flex justify-between">
                     <div className="flex flex-col">
-                        <p className="text-sm">Hello,</p>
-                        <p>{userId}</p>
-                        <p className="font-semibold text-xl">{userData ? userData.nama : "Loading..."}</p>
+                        <p className="text-md">Hello,</p>
+                        <p className="font-semibold text-2xl">{userData ? userData.nama : "Loading..."}</p>
                     </div>
                     <div>
                         <button
@@ -124,7 +113,7 @@ const HomePage = () => {
                     <JanjiDokter userData={userData.janjiBertemuDokter} name={userData} />
                 ) : (
                     <div className="p-4 bg-white shadow-lg rounded-es-lg">
-                        <p className="text-md text-start mb-[-1px] font-semibold text-slate-800 mb-2">Tidak ada janji dokter saat ini</p>
+                        <p className="text-md text-start font-semibold text-slate-800 mb-2">Tidak ada janji dokter saat ini</p>
                         <p className="text-teal-700">Gunakan chatbot untuk memilih jadwal temu dokter</p>
                     </div>
                 )}

@@ -13,7 +13,6 @@ const LoginPage = () => {
 
         const usersData = JSON.parse(localStorage.getItem('userData')) || [];
 
-        // Check if any user matches the provided JKN number and password
         const user = usersData.find(user => user.jkn === jknNumber && user.password === password);
 
         if (user) {
