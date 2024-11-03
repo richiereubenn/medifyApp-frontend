@@ -12,6 +12,7 @@ import BaymaxPage from './pages/baymax.jsx';
 import HospitalPage from './pages/hospital.jsx';
 import DoctorPage from './pages/doctor.jsx';
 import BookDoctorPage from './pages/bookdoctor.jsx';
+import AddFamily from './pages/addFamily.jsx';
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,7 @@ const router = createBrowserRouter([
       { path: '/baymax', element: <BaymaxPage /> },
       { path: '/hospital', element: <HospitalPage /> },
       { path: '/doctor', element: <DoctorPage /> },
+      { path: '/addFamily', element: <AddFamily /> },
       { path: '/book/:doctorName', element: <BookDoctorPage /> }
     ]
   }

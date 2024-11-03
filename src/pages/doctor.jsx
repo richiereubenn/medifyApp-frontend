@@ -81,7 +81,7 @@ const Doctor = () => {
     const location = useLocation();
     const hospitalName = location.state?.hospitalName || '';
 
-    // Filter doctors by hospital and search term
+  
     const filteredDoctors = doctorList.filter(
         (doctor) =>
             doctor.hospital === hospitalName &&
@@ -93,8 +93,8 @@ const Doctor = () => {
             state: { 
                 doctor: {
                     ...doctor,
-                    specialization: doctor.specialization, // menambahkan spesialisasi
-                    hospital: doctor.hospital // menambahkan nama rumah sakit
+                    specialization: doctor.specialization, 
+                    hospital: doctor.hospital 
                 }
             } 
         });
