@@ -57,7 +57,7 @@ const RiwayatKesehatan = ({ userData }) => {
     return (
         <div className="w-full mt-4">
             <div className="flex justify-between items-center">
-                <p className="text-md text-start font-semibold text-slate-800 mb-2">Riwayat Kesehatan Terakhir</p>
+                <p className="text-md text-start font-semibold text-slate-800 mb-2">Riwayat Kesehatan Terakhir</p> 
                 <button
                     className=" items-end mx-auto rounded border-2 border-teal-600 bg-teal-600 px-4 py-1 text-sm font-medium text-white hover:border-teal-900 hover:bg-teal-900 transition duration-200"
                     onClick={addFamily}
@@ -67,7 +67,7 @@ const RiwayatKesehatan = ({ userData }) => {
             </div>
 
 
-            <div className="flex w-full gap-3">
+            <div className="flex w-full gap-3 mt-4">
                 {Object.keys(patientData).map((name) => (
                     <button
                         key={name}
@@ -173,7 +173,7 @@ const HomePage = () => {
     };
 
     const openChatbot = () => {
-        navigate('/hospital');
+        navigate('/baymax');
     };
 
     return (
