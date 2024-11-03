@@ -13,6 +13,7 @@ import HospitalPage from './pages/hospital.jsx';
 import DoctorPage from './pages/doctor.jsx';
 import BookDoctorPage from './pages/bookdoctor.jsx';
 import AddFamily from './pages/addFamily.jsx';
+import ScreeningResult from './pages/ScreeningResult.jsx';
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,7 @@ const router = createBrowserRouter([
       { path: '/', element: <HomePage /> },
       { path: '/registerform', element: <RegisterForm /> },
       { path: '/baymax', element: <BaymaxPage /> },
+      { path: '/screening-result', element: <ScreeningResult /> },
       { path: '/hospital', element: <HospitalPage /> },
       { path: '/doctor', element: <DoctorPage /> },
       { path: '/addFamily', element: <AddFamily /> },

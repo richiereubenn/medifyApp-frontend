@@ -1,8 +1,12 @@
 import React from 'react';
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 import Medi from '../assets/medi.png';
+import { useNavigate } from 'react-router-dom';
 
 const BaymaxPage = () => {
+
+    const navigate = useNavigate();
+
     const {
         transcript,
         listening,
@@ -26,6 +30,7 @@ const BaymaxPage = () => {
     const stopListening = () => {
         SpeechRecognition.stopListening();
         resetTranscript();
+        navigate('/screening-result')
     };
 
     return (
